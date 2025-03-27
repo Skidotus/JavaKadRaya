@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import javax.sound.sampled.*;
 
 
@@ -30,7 +29,7 @@ public class KadRayaLutfil {
 
         // Create moving text
         JLabel movingText = createStyledLabel("Maaf Zahir dan Batin!!!", 30);
-        movingText.setBounds(500, 300, 200, 50); // start off-screen
+        movingText.setBounds(500, 300, 400  , 50); // start off-screen
 
         // Add components to layered pane
         layeredPane.add(backgroundPanel, Integer.valueOf(1)); // Background
@@ -52,6 +51,40 @@ public class KadRayaLutfil {
 
         // Start playing music
         music();
+
+        //button
+        JButton button1 = new JButton("Click Me");
+        button1.setBounds(100,50,100,50);
+        button1.addActionListener(e -> {
+            // Set up JFrame
+            JFrame frame = new JFrame("MatRiYa Ganggg!!! pew pew");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600); // Adjust size as needed
+
+            // Create a JLayeredPane for layering components
+            JLayeredPane animationLayeredPane = new JLayeredPane();
+            animationLayeredPane.setBounds(0, 0, 800, 600);
+
+            // Add ajax-loader.gif to the layered pane
+            Icon imgIcon = new ImageIcon(KadRayaLutfil.class.getResource("/videos/tet.gif"));
+            JLabel gifLabel = new JLabel(imgIcon);
+            gifLabel.setBounds(0, 0, 800, 600); // Adjust size to match the frame
+            animationLayeredPane.add(gifLabel, Integer.valueOf(1)); // Add GIF to the background layer
+
+            // Add text over the GIF
+            JLabel textLabel = new JLabel("Main Mercun pew pew!!", SwingConstants.CENTER);
+            textLabel.setFont(new Font("Serif", Font.BOLD, 24));
+            textLabel.setForeground(Color.WHITE); // Adjust color as needed
+            textLabel.setBounds(0, 500, 800, 50); // Position the text over the GIF
+            animationLayeredPane.add(textLabel, Integer.valueOf(2)); // Add text to the foreground layer
+
+            // Add the layered pane to the frame
+            frame.add(animationLayeredPane);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+        layeredPane.add(button1, Integer.valueOf(5));
+        
     }
 
     private JLabel createStyledLabel(String text, int fontSize) {
@@ -77,14 +110,9 @@ public class KadRayaLutfil {
         try {
             // Ensure the resource path is correct
             java.net.URL audioResource = KadRayaLutfil.class.getResource("/sound/tobitobcat.wav");
-           
 
             // Load the audio file
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioResource);
-
-            // Log audio format details
-            AudioFormat format = audioStream.getFormat();
-            System.out.println("Audio Format: " + format);
 
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
