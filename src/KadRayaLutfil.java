@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+//import java.awt.event.*;
 import javax.sound.sampled.*;
 
 public class KadRayaLutfil {
@@ -26,17 +26,15 @@ public class KadRayaLutfil {
 
         // Create BIG title that fits the frame
         JLabel greetingLabel = createStyledLabel("Selamat Hari Raya", 50);
-        greetingLabel.setBounds(0, 0, 500, 500);
+        greetingLabel.setBounds(0, 10, 500, 500);
 
         // Create moving text
         JLabel movingText = createStyledLabel("Eid Mubarak!", 30);
         movingText.setBounds(500, 200, 200, 50); // start off-screen
 
         // Create QR button
-        qrButton qrbutton = new qrButton("1");
-        qrbutton.setBounds(420, 10, 50, 30); // Small button at the top-right
-        qrbutton.setFont(new Font("Arial", Font.BOLD, 10));
-        qrbutton.setFocusable(false);
+        qrButton qrbutton = new qrButton("Nak kaya");
+        
 
         // Load and resize icons for sound ON and OFF
         ImageIcon soundOnIcon = resizeIcon(new ImageIcon(getClass().getResource("/icons/sound_on.png")), 40, 40);
@@ -44,7 +42,7 @@ public class KadRayaLutfil {
 
         // 🔊 Sound Toggle Button
         soundButton = new JButton(soundOnIcon);
-        soundButton.setBounds(350, 10, 40, 40); // Exact size as icon
+        soundButton.setBounds(10, 10, 40, 40); // Exact size as icon
         soundButton.setBorderPainted(false); // Remove border
         soundButton.setContentAreaFilled(false); // Remove background
         soundButton.setFocusPainted(false); // Remove focus outline
