@@ -29,8 +29,8 @@ public class KadRayaLutfil {
         greetingLabel.setBounds(0, 0, 500, 500); 
 
         // Create moving text
-        JLabel movingText = createStyledLabel("Eid Mubarak!", 30);
-        movingText.setBounds(500, 200, 200, 50); // start off-screen
+        JLabel movingText = createStyledLabel("Maaf Zahir dan Batin!!!", 30);
+        movingText.setBounds(500, 300, 200, 50); // start off-screen
 
         // Add components to layered pane
         layeredPane.add(backgroundPanel, Integer.valueOf(1)); // Background
