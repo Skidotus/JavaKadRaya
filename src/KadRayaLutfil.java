@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-//import java.awt.event.*;
 import javax.sound.sampled.*;
 
 public class KadRayaLutfil {
@@ -10,7 +9,7 @@ public class KadRayaLutfil {
     public KadRayaLutfil() {
         // Create the main frame
         JFrame frameKad = new JFrame();
-        frameKad.setResizable(false);
+        frameKad.setResizable(true);
 
         // Create a layered pane for stacking elements
         JLayeredPane layeredPane = new JLayeredPane();
@@ -35,26 +34,34 @@ public class KadRayaLutfil {
         // Create QR button
         qrButton qrbutton = new qrButton("Nak kaya");
         
-
         // Load and resize icons for sound ON and OFF
         ImageIcon soundOnIcon = resizeIcon(new ImageIcon(getClass().getResource("/icons/sound_on.png")), 40, 40);
         ImageIcon soundOffIcon = resizeIcon(new ImageIcon(getClass().getResource("/icons/sound_off.png")), 40, 40);
 
         // 🔊 Sound Toggle Button
         soundButton = new JButton(soundOnIcon);
-        soundButton.setBounds(10, 10, 40, 40); // Exact size as icon
-        soundButton.setBorderPainted(false); // Remove border
-        soundButton.setContentAreaFilled(false); // Remove background
-        soundButton.setFocusPainted(false); // Remove focus outline
+        soundButton.setBounds(10, 10, 40, 40);
+        soundButton.setBorderPainted(false);
+        soundButton.setContentAreaFilled(false);
+        soundButton.setFocusPainted(false);
         soundButton.addActionListener(e -> toggleMusic(soundOnIcon, soundOffIcon));
 
         // Add components to layered pane
-        layeredPane.add(backgroundPanel, Integer.valueOf(1)); // Background
-        layeredPane.add(greetingLabel, Integer.valueOf(2)); // Big Title (Centered)
-        layeredPane.add(foregroundLabel, Integer.valueOf(3)); // Foreground image
-        layeredPane.add(movingText, Integer.valueOf(4)); // Moving Text
-        layeredPane.add(qrbutton, Integer.valueOf(5)); // QR button
-        layeredPane.add(soundButton, Integer.valueOf(6)); // Sound Button
+        layeredPane.add(backgroundPanel, Integer.valueOf(1));
+        layeredPane.add(greetingLabel, Integer.valueOf(2));
+        layeredPane.add(foregroundLabel, Integer.valueOf(3));
+        layeredPane.add(movingText, Integer.valueOf(4));
+        layeredPane.add(qrbutton, Integer.valueOf(5));
+        layeredPane.add(soundButton, Integer.valueOf(6));
+
+        JButton button1 = new JButton("1");
+        button1.setBounds(200, 400, 80, 50); // Adjusted position to bottom center
+        //button1.setOpaque(true);
+        button1.setBackground(Color.BLUE);
+        button1.setForeground(Color.WHITE);
+        button1.setBackground(Color.YELLOW); // Added color to make it stand out
+        button1.addActionListener(e -> showFestiveAnimation());
+        layeredPane.add(button1, Integer.valueOf(10)); // Higher layer priority
 
         frameKad.add(layeredPane);
 
@@ -75,20 +82,44 @@ public class KadRayaLutfil {
     private JLabel createStyledLabel(String text, int fontSize) {
         JLabel label = new JLabel(text, SwingConstants.CENTER);
         label.setFont(new Font("Serif", Font.BOLD, fontSize));
-        label.setForeground(new Color(1, 1, 1)); // Gold color
+        label.setForeground(new Color(1, 1, 1));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         return label;
     }
 
     private void startMovingText(JLabel movingText) {
         Timer timer = new Timer(10, e -> {
-            int x = movingText.getX() - 1; // Move left by 1 pixel
+            int x = movingText.getX() - 1;
             if (x + movingText.getWidth() < 0) {
-                x = 500; // Reset to start from the right again
+                x = 500;
             }
-            movingText.setLocation(x, movingText.getY()); // Update position
+            movingText.setLocation(x, movingText.getY());
         });
         timer.start();
+    }
+
+    private void showFestiveAnimation() {
+        JFrame frame = new JFrame("MatRiYa Ganggg!!! pew pew");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(800, 600);
+
+        JLayeredPane animationLayeredPane = new JLayeredPane();
+        animationLayeredPane.setBounds(0, 0, 800, 600);
+
+        Icon imgIcon = new ImageIcon(getClass().getResource("/videos/tet.gif"));
+        JLabel gifLabel = new JLabel(imgIcon);
+        gifLabel.setBounds(0, 0, 800, 600);
+        animationLayeredPane.add(gifLabel, Integer.valueOf(1));
+
+        JLabel textLabel = new JLabel("Main Mercun pew pew!!", SwingConstants.CENTER);
+        textLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        textLabel.setForeground(Color.WHITE);
+        textLabel.setBounds(0, 500, 800, 50);
+        animationLayeredPane.add(textLabel, Integer.valueOf(2));
+
+        frame.add(animationLayeredPane);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     private void music() {
@@ -98,11 +129,10 @@ public class KadRayaLutfil {
                 System.err.println("Error: Audio file not found.");
                 return;
             }
-
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioResource);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the audio
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
             clip.start();
         } catch (Exception e) {
             System.err.println("Error loading or playing audio file: " + e.getMessage());
@@ -114,11 +144,11 @@ public class KadRayaLutfil {
         if (clip != null) {
             if (clip.isRunning()) {
                 clip.stop();
-                soundButton.setIcon(soundOffIcon); // Switch to "OFF" icon
+                soundButton.setIcon(soundOffIcon);
             } else {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
                 clip.start();
-                soundButton.setIcon(soundOnIcon); // Switch to "ON" icon
+                soundButton.setIcon(soundOnIcon);
             }
         }
     }
@@ -128,6 +158,4 @@ public class KadRayaLutfil {
         Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImg);
     }
-
-
 }

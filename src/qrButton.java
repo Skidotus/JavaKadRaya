@@ -16,7 +16,7 @@ public class qrButton extends JButton{
         setFocusable(false);
 
         //color yang letak dekat sini
-        setBackground(Color.BLUE);
+        setBackground(Color.GREEN);
         setForeground(Color.WHITE);
         setBorderPainted(false);
 
