@@ -129,7 +129,5 @@ public class KadRayaLutfil {
         return new ImageIcon(resizedImg);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(KadRayaLutfil::new);
-    }
+
 }
